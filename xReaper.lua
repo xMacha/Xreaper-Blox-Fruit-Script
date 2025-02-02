@@ -25,8 +25,8 @@ local Window = Rayfield:CreateWindow({
    KeySystem = true, 
    KeySettings = {
       Title = "Enter Key",
-      Subtitle = "Unlimited key on ours discord",
-      Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
+      Subtitle = "https://discord.gg/EtjXnWjt",
+      Note = "Join ours discord to get key", -- Use this to tell the user how to get a key
       FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
       SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
       GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
@@ -164,13 +164,19 @@ local SelectPlayer = PlayerTab:CreateDropdown({
 local Button = PlayerTab:CreateButton({
    Name = "Refresh",
    Callback = function()
-	local players = Players:GetPlayers()
-	local options = {}
-	for _, plr in ipairs(players) do
-    table.insert(options, plr.Name)
-	end
-  	 end,
+       -- Pobierz nową listę graczy
+       local players = Players:GetPlayers()
+       local options = {}
+
+       for _, plr in ipairs(players) do
+           table.insert(options, plr.Name)
+       end
+
+       -- Aktualizuj dropdown nowymi opcjami
+       SelectPlayer:UpdateDropdown(options)
+   end,
 })
+
 
 local selectedPlaceName = "second sea"
 
