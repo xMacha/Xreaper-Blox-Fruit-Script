@@ -22,7 +22,7 @@ local Window = Rayfield:CreateWindow({
       RememberJoins = true 
    },
 
-   KeySystem = true, 
+   KeySystem = false, 
    KeySettings = {
       Title = "Enter Key",
       Subtitle = "https://discord.gg/EtjXnWjt",
