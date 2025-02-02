@@ -165,7 +165,7 @@ local Button = PlayerTab:CreateButton({
    Name = "Refresh",
    Callback = function()
        -- Pobierz nową listę graczy
-       local players = Players:GetPlayers()
+       local players = players:GetPlayers()
        local options = {}
 
        for _, plr in ipairs(players) do
