@@ -7,8 +7,8 @@ local Window = Rayfield:CreateWindow({
    LoadingSubtitle = "by Macha",
    Theme = "",
 
-   DisableRayfieldPrompts = true,
-   DisableBuildWarnings = true, 
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false, 
 
    ConfigurationSaving = {
       Enabled = true,
