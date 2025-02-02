@@ -22,10 +22,10 @@ local Window = Rayfield:CreateWindow({
       RememberJoins = true 
    },
 
-   KeySystem = false, 
+   KeySystem = true, 
    KeySettings = {
-      Title = "Untitled",
-      Subtitle = "Key System",
+      Title = "Enter Key",
+      Subtitle = "Unlimited key on ours discord",
       Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
       FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
       SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
