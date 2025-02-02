@@ -132,7 +132,7 @@ end)
   	  end,
 })
 
-local Section = PlayerTab:CreateSection("Teleport")
+                   local Section = PlayerTab:CreateSection("Teleport") --TELEPORT
 
 local TweenService = game:GetService("TweenService")
 local Players = game:GetService("Players")
