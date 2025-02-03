@@ -133,7 +133,87 @@ end)
 })
 
 
-                   local Section = PlayerTab:CreateSection("Teleport") --TELEPORT
+
+local Toggle = PlayerTab:CreateToggle({
+   Name = "Large Attack Range on melle",
+   CurrentValue = false,
+   Flag = "largeattackrange", -- Unikalny identyfikator
+   Callback = function(Value)
+       local ply = game:GetService("Players").LocalPlayer.Character
+       if Value then
+           -- Ustaw rozmiar rąk na większy (przykładowo Vector3.new(30,30,30); dostosuj według potrzeb)
+           ply.RightHand.Size = Vector3.new(1, 1, 50)
+           ply.LeftHand.Size  = Vector3.new(1, 1, 50)
+		   ply.LeftHand.Transparency = 1
+		   ply.RightHand.Transparency = 1
+       else
+           -- Przywróć domyślny rozmiar rąk (przykładowo Vector3.new(5,5,5); dostosuj według potrzeb)
+           ply.RightHand.Size = Vector3.new(1, 1, 1)
+           ply.LeftHand.Size  = Vector3.new(1, 1, 1)
+		   ply.LeftHand.Transparency = 0
+		   ply.RightHand.Transparency = 0
+       end
+   end,
+})
+
+ local Section = PlayerTab:CreateSection("Teleport")
+ ------------------------- --TELEPORT--------------------------------------
+
+ local Keybind = PlayerTab:CreateKeybind({
+   Name = "teleport to nearest player",
+   CurrentKeybind = "none",
+   HoldToInteract = false,
+   Flag = "Keybind1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Keybind)
+           local localPlayer = game.Players.LocalPlayer
+        local localCharacter = localPlayer.Character or localPlayer.CharacterAdded:Wait()
+        local localHRP = localCharacter:FindFirstChild("HumanoidRootPart")
+        if not localHRP then
+            Rayfield:Notify({
+                Title = "Teleport Error",
+                Content = "Local HumanoidRootPart not found!",
+                Duration = 6.5,
+                Image = "rewind"
+            })
+            return
+        end
+
+        local nearestPlayer = nil
+        local nearestDistance = math.huge
+
+        for _, player in ipairs(game.Players:GetPlayers()) do
+            if player ~= localPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                local targetHRP = player.Character.HumanoidRootPart
+                local distance = (targetHRP.Position - localHRP.Position).Magnitude
+                if distance < nearestDistance then
+                    nearestDistance = distance
+                    nearestPlayer = player
+                end
+            end
+        end
+
+        if nearestPlayer and nearestPlayer.Character and nearestPlayer.Character:FindFirstChild("HumanoidRootPart") then
+            local targetHRP = nearestPlayer.Character.HumanoidRootPart
+            -- Ustawienie teleportacji z niewielkim offsetem, aby uniknąć kolizji
+            local newCFrame = targetHRP.CFrame * CFrame.new(0, 0, -5)
+            localHRP.CFrame = newCFrame
+
+            Rayfield:Notify({
+                Title = "Teleport",
+                Content = "Teleported to nearest player: " .. nearestPlayer.Name,
+                Duration = 6.5,
+                Image = "rewind"
+            })
+        else
+            Rayfield:Notify({
+                Title = "Teleport Error",
+                Content = "No nearest player found!",
+                Duration = 6.5,
+                Image = "rewind"
+            })
+        end
+   end,
+})
 
 local TweenService = game:GetService("TweenService")
 local Players = game:GetService("Players")
@@ -606,6 +686,8 @@ local ESPFillcolorpicker = ESPTab:CreateColorPicker({
 
 -------------------------------------------------------------------
 -- MENU: Exit Button
+
+local Section = ESPTab:CreateSection("Exit")
 local ExitButtonESP = ESPTab:CreateButton({
    Name = "Exit",
    Callback = function()
