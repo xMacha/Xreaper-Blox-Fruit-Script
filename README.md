@@ -1,1 +1,1 @@
-Discord - https://discord.gg/EtjXnWjt
+Beta version discord: ___macha
